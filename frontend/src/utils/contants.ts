@@ -1,6 +1,7 @@
 export enum PLUGIN_TYPE {
   NEW = 'new',
   INFO = 'info',
+  DETAIL = 'detail',
 }
 
 export enum MODAL_TYPE {

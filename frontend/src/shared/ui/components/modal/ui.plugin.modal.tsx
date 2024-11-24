@@ -12,6 +12,13 @@ export function PluginModal(props: ModalModel) {
     event.preventDefault();
     // TODO: send data to backend.
     (document.getElementById(MODAL_TYPE.NEW_PLUGIN) as any).close();
+    props.setPlugins((prev: PluginModel[]) => [
+      ...prev,
+      {
+        title: data.find(plugin => plugin.id === formData?.selectedPluginsIds[0])?.title ?? '',
+        id: formData?.selectedPluginsIds[0] ?? '',
+      },
+    ]);
     setFormData({
       selectedPluginsIds: [],
       userId: 'none',

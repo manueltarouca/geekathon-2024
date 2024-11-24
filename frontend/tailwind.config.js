@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 import daisyui from "daisyui"
 
+
 module.exports = {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
@@ -10,7 +11,7 @@ module.exports = {
   },
   plugins: [
     daisyui,
-
+    require('@tailwindcss/line-clamp')
   ],
   daisyui: {
     themes: ['light', 'business'], // false: only light + dark | true: all themes | array: specific themes like this ["light", "dark", "cupcake"]

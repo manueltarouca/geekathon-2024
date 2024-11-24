@@ -1,13 +1,15 @@
 import { Link, NavLink } from 'react-router';
 import { useThemeContext } from '../../../../contexts/theme.context';
+import { useAuthContext } from '../../../../contexts/auth.context';
 
 export function Header() {
   const { theme, changeTheme } = useThemeContext();
+  const { logout } = useAuthContext();
   return (
     <div className="navbar bg-base-100">
       <div className="flex-1">
         <Link className="btn btn-ghost text-xl" to={'/'}>
-          RGPD ❤
+          transcribe.it
         </Link>
       </div>
       <div className="flex-none gap-2">
@@ -34,7 +36,9 @@ export function Header() {
                 </NavLink>
               </li>
               <li>
-                <NavLink to={'/logout'}>Logout</NavLink>
+                <NavLink to={'/logout'} onClick={() => logout()}>
+                  Logout
+                </NavLink>
               </li>
               <div className="divider"></div>
               <li>

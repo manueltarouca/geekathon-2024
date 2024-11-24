@@ -36,6 +36,7 @@ export function Home() {
         title="Activate Plugin"
         trigger={triggerModal}
         setTrigger={setTriggerModal}
+        setPlugins={setPlugins}
       />
       {plugins.map((plugin, index) => {
         return (
