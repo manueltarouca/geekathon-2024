@@ -2,11 +2,12 @@ import json
 import boto3
 import psycopg2
 import os
+from urllib.parse import urlparse
 
 s3_client = boto3.client("s3")
 sns_client = boto3.client("sns")
 
-#rds_connection_string = "postgresql://postgres_iSOStO{_Xm]*P4-prm5gH%?f{w7T@geekathon-2024-db.cjuo0o6iy3sr.us-west-2.rds.amazonaws.com:5432"
+rds_connection_string = "postgresql://postgres_iSOStO{_Xm]*P4-prm5gH%?f{w7T@geekathon-2024-db.cjuo0o6iy3sr.us-west-2.rds.amazonaws.com:5432"
 sns_topic_arn = "arn:aws:sns:us-west-2:431614406433:PersistTranscriptionJobDone"
 
 db_name = "postgres"
@@ -40,6 +41,20 @@ def lambda_handler(event, context):
         print(f"Job Name: {job_name}")
         print(f"Speakers: {speakers}")
         print(f"Transcript: {transcript}")
+
+        p = urlparse(rds_connection_string)
+
+        pg_connection_dict = {
+            'dbname': p.path[1:],
+            'user': p.username,
+            'password': p.password,
+            'port': p.port,
+            'host': p.hostname
+        }
+
+        print(pg_connection_dict)
+        con = psycopg2.connect(**pg_connection_dict)
+        print(con)
      
         with psycopg2.connect(rds_connection_string) as conn:
              with conn.cursor() as cur:
