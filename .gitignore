@@ -1,0 +1,4 @@
+venv/
+site-packages
+py
+.DS_Store
