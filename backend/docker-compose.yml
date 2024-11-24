@@ -1,0 +1,9 @@
+services:
+  app:
+    build: .
+    ports:
+      - '3000:3000'
+    environment:
+      NODE_ENV: development
+      DATABASE_URL: 'postgresql://postgres:iSOStO%7B_Xm%5D%2AP4-prm5gH%25%3Ff%7Bw7T@geekathon-2024-db.cjuo0o6iy3sr.us-west-2.rds.amazonaws.com:5432/postgres'
+      JWT_SECRET: 'geekathon-2024'
