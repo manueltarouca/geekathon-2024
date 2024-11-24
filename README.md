@@ -58,3 +58,6 @@ Developers can integrate the transcription and summarization services into their
 - **API Integration:** Facilitates external application access to transcription and summarization features.
 
 This documentation provides an overview of the **Transcribe.it** platform, its architecture, and the tools used to deliver efficient transcription and summarization solutions.
+
+## **Demo**
+[Preview Demo](https://www.canva.com/design/DAGXZntpvpw/QPxZtqBQMENj6_5D3_Anxg/watch?utm_content=DAGXZntpvpw&utm_campaign=designshare&utm_medium=link&utm_source=editor)
