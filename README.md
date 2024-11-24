@@ -61,3 +61,6 @@ This documentation provides an overview of the **Transcribe.it** platform, its a
 
 ## **Demo**
 [Preview Demo](https://www.canva.com/design/DAGXZntpvpw/QPxZtqBQMENj6_5D3_Anxg/watch?utm_content=DAGXZntpvpw&utm_campaign=designshare&utm_medium=link&utm_source=editor)
+
+<img width="513" alt="Captura de ecrã 2024-11-24, às 16 21 52" src="https://github.com/user-attachments/assets/0a5a55ba-971d-4b87-b07a-051e752da637">
+
