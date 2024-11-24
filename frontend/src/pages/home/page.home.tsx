@@ -18,7 +18,7 @@ export function Home() {
     const data: PluginModel[] = [
       {
         title: 'Plugin 1',
-        id: '1',
+        id: 'plugin_1',
       },
     ];
     setPlugins(data);
@@ -37,6 +37,7 @@ export function Home() {
         trigger={triggerModal}
         setTrigger={setTriggerModal}
         setPlugins={setPlugins}
+        plugins={plugins}
       />
       {plugins.map((plugin, index) => {
         return (

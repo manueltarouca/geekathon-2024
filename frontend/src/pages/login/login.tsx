@@ -26,7 +26,6 @@ export function Login() {
 
     signin(email, password)
       .then((result: any) => {
-        console.log(result);
         login(result.token, {
           email: result.user.email,
           role: result.user.role,
@@ -37,7 +36,7 @@ export function Login() {
       })
       .catch(err => {
         setError(err.message);
-        console.log(err);
+        console.error(err);
       });
   }
 

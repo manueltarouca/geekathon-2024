@@ -27,7 +27,7 @@ export function TimeLine() {
           setTranscriptions(result);
         })
         .catch(err => {
-          console.log(err);
+          console.error(err);
         });
     } catch (error) {
       console.error(error);

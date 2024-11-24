@@ -32,12 +32,11 @@ export function Register() {
 
     signup(email, password)
       .then((result: any) => {
-        console.log(result);
         navigate('/login');
       })
       .catch(err => {
         setError(err.message);
-        console.log(err);
+        console.error(err);
       });
   }
 

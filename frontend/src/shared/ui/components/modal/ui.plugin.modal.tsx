@@ -1,28 +1,33 @@
 import { FormEvent, useEffect, useState } from 'react';
-import { ModalFormModel, ModalModel } from './modal.modal';
+import { ModalModel } from './modal.modal';
 import { PluginModel } from '../../../../pages/home/page.home';
 import { MODAL_TYPE } from '../../../../utils/contants';
 
 export function PluginModal(props: ModalModel) {
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([] as PluginModel[]);
-  const [formData, setFormData] = useState<ModalFormModel>();
+  const [formData, setFormData] = useState<PluginModel[]>();
 
-  function onsubmit(event: FormEvent) {
+  function onSubmit(event: FormEvent) {
     event.preventDefault();
     // TODO: send data to backend.
+    props.setPlugins(formData as PluginModel[]);
     (document.getElementById(MODAL_TYPE.NEW_PLUGIN) as any).close();
-    props.setPlugins((prev: PluginModel[]) => [
-      ...prev,
-      {
-        title: data.find(plugin => plugin.id === formData?.selectedPluginsIds[0])?.title ?? '',
-        id: formData?.selectedPluginsIds[0] ?? '',
-      },
-    ]);
-    setFormData({
-      selectedPluginsIds: [],
-      userId: 'none',
-    });
+    props.setTrigger(false);
+  }
+
+  function selectPlugin(pluginId: string) {
+    if (formData) {
+      const index = formData.findIndex(item => item.id === pluginId);
+      if (index !== -1) {
+        formData.splice(index, 1);
+      } else {
+        formData.push(data.find(item => item.id === pluginId) as PluginModel);
+      }
+      setFormData([...formData]);
+    } else {
+      setFormData([data.find(item => item.id === pluginId) as PluginModel]);
+    }
   }
 
   useEffect(() => {
@@ -56,14 +61,16 @@ export function PluginModal(props: ModalModel) {
             id: 'plugin_6',
           },
         ]);
+
+        setFormData(props.plugins);
       } catch (error) {
         console.error('Failed to fetch plugins:', error);
       } finally {
         setIsLoading(false);
       }
-      props.setTrigger(false);
     }
-  }, [props]);
+    // eslint-disable-next-line
+  }, [props.trigger]);
 
   return (
     <dialog id={props.id} className="modal">
@@ -79,33 +86,25 @@ export function PluginModal(props: ModalModel) {
         </div>
 
         <div className="modal-body flex flex-col items-center mt-6">
-          <form onSubmit={(e: FormEvent) => onsubmit(e)} className="flex flex-col gap-6">
-            {!isLoading && (
-              <label className="form-control w-full max-w-xs">
-                <select
-                  className="select select-bordered"
-                  value={formData?.selectedPluginsIds[0] ?? ''}
-                  onChange={e =>
-                    setFormData({
-                      selectedPluginsIds: [e.target.value],
-                      userId: 'user_id_token',
-                    })
-                  }
-                >
-                  <option disabled selected value="">
-                    Select a plugin
-                  </option>
-                  {data?.map((plugin, index) => {
-                    return (
-                      <option key={`option-plugin-${index}`} value={plugin.id}>
-                        {plugin.title}
-                      </option>
-                    );
-                  })}
-                </select>
-              </label>
-            )}
-            <button type="submit" className="btn btn-outline">
+          <form onSubmit={(e: FormEvent) => onSubmit(e)} className="flex flex-col">
+            <div className="flex flex-wrap gap-6">
+              {!isLoading && data.length > 0
+                ? data.map((value, index) => (
+                    <span
+                      key={index}
+                      className={`badge animate-badge-${index % 3} cursor-pointer ${
+                        formData?.find(item => item.id === value.id) ? 'badge-primary' : ''
+                      }`}
+                      onClick={() => {
+                        selectPlugin(value.id);
+                      }}
+                    >
+                      {value.title}
+                    </span>
+                  ))
+                : null}
+            </div>
+            <button type="submit" className="btn btn-outline mt-8">
               Submit
             </button>
           </form>

@@ -50,7 +50,7 @@ const AuthProvider = ({ children }: Props) => {
     setLoading(true);
     verifyToken()
       .then((result: any) => {
-        if (result) {
+        if (result !== 'Unauthorized') {
           setAuthenticated(true);
           setUserInfo({
             email: result.email,
